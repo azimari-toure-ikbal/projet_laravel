@@ -8,16 +8,16 @@
                 @method('GET')
                 <label>
                     @if(Route::currentRouteName() == "product-category")
+                        <input type="text" name="search"
+                               class="inline-block bg-white hover:bg-gray-100 active:bg-gray-200 focus-visible:ring ring-indigo-300 border text-gray-500 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 md:px-8 py-2 md:py-3"
+                               placeholder="Recherchez un produit">
+                    @else
                         <select name="category" id="category" class="inline-block bg-white hover:bg-gray-100 active:bg-gray-200 focus-visible:ring ring-indigo-300 border text-gray-500 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 md:px-8 py-2 md:py-3">
                             <option value="all">Toutes les catégories</option>
                             <option value="fruit">Fruits</option>
                             <option value="vegetable">Légumes</option>
                             <option value="meat">Viandes</option>
                         </select>
-                    @else
-                        <input type="text" name="search"
-                               class="inline-block bg-white hover:bg-gray-100 active:bg-gray-200 focus-visible:ring ring-indigo-300 border text-gray-500 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 md:px-8 py-2 md:py-3"
-                               placeholder="Recherchez un produit">
                     @endif
                 </label>
             </form>
