@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProduitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', [ ProduitController::class, 'index']
+)->name('home');
 
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
+// Afficher tous les produits
+Route::get('/products', [ProduitController::class, 'products'])->name('products');
 
-Route::get('/category', function () {
-    return view('category_products');
-})->name('product-category');
+// Afficher les produits d'une catégorie
+Route::get('/category/{id}', [ ProduitController::class, 'productCategory']
+)->name('product-category');
 
-Route::get('/add-product', function () {
-    return view('add_product');
-})->name('add-product');
+// Formulaire d'ajout d'un produit
+Route::get('/addProductForm', [ProduitController::class, 'addProductForm'])->name('add-product');
 
-Route::get('/detail', function () {
-    return view('product_detail');
-})->name('product-detail');
+// afficher le détail d'un produit
+Route::get('/detail/{id}', [ProduitController::class, 'productDetail' ] )->name('product-detail');
+
+// Ajouter un produit
+Route::post('/addProduct', [ProduitController::class, 'addProduct'])->name('addProduct');
+
+// Formulaire de modification d'un produit
+Route::get('/editProductForm/{id}', [ProduitController::class, 'editProductForm'])->name('editProductForm');
+
+// Modifier un produit
+Route::put('/editProduct/{id}', [ProduitController::class, 'editProduct'])->name('editProduct');
+
+// Supprimer un produit
+Route::get('/deleteProduct/{id}', [ProduitController::class, 'deleteProduct'])->name('deleteProduct')->withTrashed();
+
+Route::get('/searchCategoryProduct/{id}', [ProduitController::class, 'searchCategoryProduct'])->name('searchCategoryProduct');

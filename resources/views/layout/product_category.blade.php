@@ -3,59 +3,27 @@
         <div class="flex justify-between items-end gap-4 mb-6">
             <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">Collections</h2>
         </div>
-
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-6">
-            <!-- product - start -->
-            <div>
-                <a href="{{ route('product-category')  }}" class="group h-96 block bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-2 lg:mb-3">
-                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&q=75&fit=crop&crop=top&w=600&h=700" loading="lazy" alt="Photo by Austin Wade" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
-                </a>
+            @forelse ($categories as $categorie)
+                {{-- affichage des catégories --}}
+                <div>
+                    <a href="{{ route('product-category', ['id'=>$categorie->id]) }}"
+                        class="group h-96 block bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-2 lg:mb-3">
+                        <img src="/images/categories/{{$categorie->image}}" loading="lazy"
+                            alt="Photo de {{ $categorie->nom }}"
+                            class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
+                    </a>
 
-                <div class="flex flex-col">
-                    <span class="text-gray-500">Men</span>
-                    <a href="{{ route('product-category')  }}" class="text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100">Business Causual</a>
+                    <div class="flex flex-col">
+                        <span class="text-gray-500">{{ $categorie->nom }}</span>
+                        <a href="{{ route('product-category', ['id'=>$categorie->id]) }}"
+                            class="text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100">{{ $categorie->description }}</a>
+                    </div>
+            @empty
+                <div class="text-center">
+                    <p class="text-gray-500">Aucune catégorie n'est disponible pour le moment.</p>
                 </div>
-            </div>
-            <!-- product - end -->
-
-            <!-- product - start -->
-            <div>
-                <a href="{{ route('product-category')  }}" class="group h-96 block bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-2 lg:mb-3">
-                    <img src="https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?auto=format&q=75&fit=crop&crop=top&w=600&h=700" loading="lazy" alt="Photo by engin akyurt" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
-                </a>
-
-                <div class="flex flex-col">
-                    <span class="text-gray-500">Women</span>
-                    <a href="{{ route('product-category')  }}" class="text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100">Summer Season</a>
-                </div>
-            </div>
-            <!-- product - end -->
-
-            <!-- product - start -->
-            <div>
-                <a href="{{ route('product-category')  }}" class="group h-96 block bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-2 lg:mb-3">
-                    <img src="https://images.unsplash.com/photo-1552668693-d0738e00eca8?auto=format&q=75&fit=crop&crop=top&w=600&h=700" loading="lazy" alt="Photo by Austin Wade" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
-                </a>
-
-                <div class="flex flex-col">
-                    <span class="text-gray-500">Men</span>
-                    <a href="{{ route('product-category')  }}" class="text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100">Streetwear</a>
-                </div>
-            </div>
-            <!-- product - end -->
-
-            <!-- product - start -->
-            <div>
-                <a href="{{ route('product-category')  }}" class="group h-96 block bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-2 lg:mb-3">
-                    <img src="https://images.unsplash.com/photo-1560269999-cef6ebd23ad3?auto=format&q=75&fit=crop&w=600&h=700" loading="lazy" alt="Photo by Austin Wade" class="w-full h-full object-cover object-center group-hover:scale-110 transition duration-200" />
-                </a>
-
-                <div class="flex flex-col">
-                    <span class="text-gray-500">Women</span>
-                    <a href="{{ route('product-category')  }}" class="text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100">Sale</a>
-                </div>
-            </div>
-            <!-- product - end -->
+            @endforelse
         </div>
     </div>
 </div>

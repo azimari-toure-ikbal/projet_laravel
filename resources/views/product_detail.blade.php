@@ -8,7 +8,7 @@
                 <!-- images - start -->
                 <div class="grid lg:grid-cols-5 gap-4">
                     <div class="lg:col-span-4 bg-gray-100 rounded-lg overflow-hidden relative">
-                        <img src="https://images.unsplash.com/flagged/photo-1571366992942-be878c7b10c0?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Himanshu Dewangan" class="w-full h-full object-cover object-center" />
+                        <img src="/images/produits/{{$produit->image}}" loading="lazy" alt="Photo by Himanshu Dewangan" class="w-full h-full object-cover object-center" />
                         <span class="bg-red-500 text-white text-sm tracking-wider uppercase rounded-br-lg absolute left-0 top-0 px-3 py-1.5">sale</span>
 
                         <a href="#" class="inline-block bg-white hover:bg-gray-100 focus-visible:ring ring-indigo-300 text-gray-500 active:text-gray-700 border text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 absolute right-4 top-4 px-3.5 py-3">
@@ -24,8 +24,8 @@
                 <div class="md:py-8">
                     <!-- name - start -->
                     <div class="mb-2 md:mb-3">
-                        <span class="inline-block text-gray-500 mb-0.5">Maybe la categorie</span>
-                        <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">Pullover with pattern</h2>
+                        <span class="inline-block text-gray-500 mb-0.5"> {{$category->nom}} </span>
+                        <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">{{$produit->nom}}</h2>
                     </div>
                     <!-- name - end -->
 
@@ -59,8 +59,12 @@
                     <!-- price - start -->
                     <div class="mb-4">
                         <div class="flex items-end gap-2">
-                            <span class="text-gray-800 text-xl md:text-2xl font-bold">$15.00</span>
-                            <span class="text-red-500 line-through mb-0.5">$30.00</span>
+                            @if ($produit->solde == "oui")
+                                <span class="text-gray-800 lg:text-lg font-bold">${{$produit->prix - $produit->montantSolde}}</span>
+                                <span class="text-red-500 line-through mb-0.5">${{$produit->prix}}</span>
+                            @else
+                                <span class="text-gray-800 lg:text-lg font-bold">${{$produit->prix}}</span>
+                            @endif
                         </div>
 
                         <span class="text-gray-500 text-sm">incl. TVA et livraison</span>
@@ -70,7 +74,7 @@
                     <!-- description - start -->
                     <div class="mb-6">
                         <h3 class="text-gray-800 text-lg font-semibold mb-2">Description</h3>
-                        <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquet nisl, nec aliquet nisl nisl sit amet lorem. Sed euismod, nisl nec ultricies lacinia, nisl nisl aliquet nisl, nec aliquet nisl nisl sit amet lorem.</p>
+                        <p class="text-gray-500 text-sm">{{$produit->description}}</p>
                     </div>
                     <!-- description - end -->
 
@@ -93,8 +97,8 @@
                     </div>
 
                     <div class="flex items-end gap-2 mt-8">
-                        <button id="edit-button" onclick="editProduct()" class="bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded transition duration-100" >Modifier</button>
-                        <button id="delete-button" onclick="confirmDelete()" class="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded transition duration-100" >Supprimer</button>
+                        <button id="edit-button" onclick="editProduct('{{ route('editProductForm', ['id'=>$produit->id] )}}')" class="bg-indigo-500 hover:bg-indigo-700 text-white py-1 px-2 rounded transition duration-100" >Modifier</button>
+                        <button id="delete-button" onclick="confirmDelete('{{ route('deleteProduct', ['id'=>$produit->id] )}}')" class="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded transition duration-100" >Supprimer</button>
                     </div>
 
                     <!-- buttons - end -->
@@ -109,14 +113,14 @@
     <!-- footer - end -->
 
     <script>
-        function confirmDelete() {
-            if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
-                {{--window.location.href = "{{ route('') }}";--}}
-            }
+        function editProduct(url) {
+            window.location.href = url;
         }
 
-        function editProduct() {
-            {{--window.location.href = "{{ route('') }}";--}}
+        function confirmDelete(url) {
+            if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+                window.location.href = url;
+            }
         }
 
     </script>
